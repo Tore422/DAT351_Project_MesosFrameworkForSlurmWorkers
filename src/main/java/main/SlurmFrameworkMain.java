@@ -21,7 +21,7 @@ public class SlurmFrameworkMain {
                 .addUris(uri)
                 .build();
 
-        Protos.ExecutorInfo executorSleep = Protos.ExecutorInfo.newBuilder()
+        Protos.ExecutorInfo countToTenExecutor = Protos.ExecutorInfo.newBuilder()
                 .setExecutorId(Protos.ExecutorID.newBuilder().setValue("CountToTenExecutor"))
                 .setCommand(commandInfoCountToTen)
                 .setName("Count To Ten (Java)")
@@ -35,7 +35,7 @@ public class SlurmFrameworkMain {
 
         frameworkBuilder.setPrincipal("test-framework-java");
 
-        MesosSchedulerDriver driver = new MesosSchedulerDriver(new CountToTenScheduler(),
+        MesosSchedulerDriver driver = new MesosSchedulerDriver(new CountToTenScheduler(countToTenExecutor),
                 frameworkBuilder.build(), args[0]);
 
         int status = driver.run() == Protos.Status.DRIVER_STOPPED ? 0 : 1;
