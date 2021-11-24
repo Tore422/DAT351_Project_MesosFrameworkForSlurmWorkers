@@ -44,7 +44,7 @@ public class Job {
                         .setScalar(Protos.Value.Scalar.newBuilder()
                                 .setValue(this.cpus)))
                 .addResources(Protos.Resource.newBuilder()
-                        .setName("memory")
+                        .setName("mem")
                         .setType(Protos.Value.Type.SCALAR)
                         .setScalar(Protos.Value.Scalar.newBuilder()
                                 .setValue(this.memory)))
@@ -102,7 +102,7 @@ public class Job {
     @Override
     public String toString() {
         return "Job = {Id: " + this.id
-                + " , CPU: " + this.cpus
+                + " , CPUs: " + this.cpus
                 + " , Memory: " + this.memory
                 + " , Number of retries: " + this.numberOfRetries
                 + " , State: " + this.state
