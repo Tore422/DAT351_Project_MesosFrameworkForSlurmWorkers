@@ -4,14 +4,6 @@ import org.apache.mesos.Protos;
 
 import java.util.UUID;
 
-enum JobState {
-    PENDING,
-    STAGING,
-    RUNNING,
-    SUCCESSFUL,
-    FAILED
-}
-
 public class Job {
 
     private final String id;
@@ -81,6 +73,30 @@ public class Job {
             numberOfRetries--;
             state = JobState.PENDING;
         }
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public double getCpus() {
+        return cpus;
+    }
+
+    public double getMemory() {
+        return memory;
+    }
+
+    public String getCommand() {
+        return command;
+    }
+
+    public int getNumberOfRetries() {
+        return numberOfRetries;
+    }
+
+    public JobState getState() {
+        return state;
     }
 
     @Override
