@@ -1,0 +1,12 @@
+[
+    {
+      "cpus" : 1.0,
+      "memory" : 128.0,
+      "command": "sleep 60; echo done, slept for 60 seconds"
+    },
+    {
+      "cpus" : 1.0,
+      "memory" : 128.0,
+      "command": "sleep 30; echo done, slept for 30 seconds"
+    }
+]
