@@ -42,6 +42,7 @@ public class SlurmFrameworkScheduler implements Scheduler {
 
     @Override
     public void resourceOffers(SchedulerDriver schedulerDriver, List<Protos.Offer> list) {
+        checkIfJobsRemain(schedulerDriver);
         Queue<Job> pendingJobs = new LinkedList<>();
         for (Job job : jobs) {
             if (job.getState() == JobState.PENDING) {
@@ -55,6 +56,26 @@ public class SlurmFrameworkScheduler implements Scheduler {
             }
             schedulerDriver.launchTasks(Collections.singletonList(offer.getId()),
                     doFirstFit(offer, pendingJobs));
+        }
+    }
+
+    /**
+     * Terminates the framework if no more jobs remain.
+     *
+     * @param schedulerDriver
+     */
+    private void checkIfJobsRemain(SchedulerDriver schedulerDriver) {
+        boolean finishedAllJobs = true;
+        for (Job job : jobs) {
+            if (job.getState() == JobState.PENDING
+                    || job.getState() == JobState.STAGING
+                    || job.getState() == JobState.RUNNING) {
+                finishedAllJobs = false;
+                break;
+            }
+        }
+        if (finishedAllJobs) {
+            schedulerDriver.stop();
         }
     }
 
